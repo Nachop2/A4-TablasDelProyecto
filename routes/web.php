@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => 'true']);
+Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'index']);
+Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store']);
 
 
 Route::get('/home', function () {
