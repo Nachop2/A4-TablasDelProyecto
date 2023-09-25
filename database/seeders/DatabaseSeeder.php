@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        DB::delete('delete from community_links');
+        CommunityLink::factory()->count(50)->create();
     }
 }
