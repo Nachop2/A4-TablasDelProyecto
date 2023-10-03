@@ -24,6 +24,5 @@ class CommunityLinkFactory extends Factory
             'link' => $this->faker->url,
             'approved' => 0
         ];
-   
     }
 }
