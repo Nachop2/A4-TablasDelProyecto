@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Channel;
 
 class CommunityLinkController extends Controller
 {
@@ -13,10 +14,11 @@ class CommunityLinkController extends Controller
      */
     public function index()
     {
-        
+
+        $channels = Channel::orderBy('title', 'asc')->get();
+
         $links = CommunityLink::paginate(25);
         return view('community/index', compact('links'));
-
     }
 
     /**
@@ -30,46 +32,46 @@ class CommunityLinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   
 
-    
+
+
     // public function store(Request $request) {
     //     request()->merge(['user_id' => Auth::id(), 'channel_id' => 1 ]);
     //     CommunityLink::create($request->all());
     //     return back();
     // }
-    
+
 
     public function store(Request $request)
 
     {
 
-    $data = $request->validate([
+        $data = $request->validate([
 
-    'title' => 'required|max:255',
-
-
-
-    'link' => 'required|unique:community_links|url|max:255', 
+            'title' => 'required|max:255',
 
 
 
-    ]);
+            'channel_id' => 'required|exists:channels,id',
 
-    $data['user_id'] = Auth::id();
+            'link' => 'required|unique:community_links|url|max:255',
 
-    $data['channel_id'] = 1;
 
-    CommunityLink::create($data);
 
-    return back();
+        ]);
 
+        $data['user_id'] = Auth::id();
+
+
+        CommunityLink::create($data);
+
+        return back();
     }
 
 
 
 
-  
+
 
     /**
      * Display the specified resource.
