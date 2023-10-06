@@ -61,11 +61,12 @@ class CommunityLinkController extends Controller
 
 
         ]);
-
+        $approved = Auth::user()->isTrusted();
         $data['user_id'] = Auth::id();
-
+        $data['approved'] = $approved;
 
         CommunityLink::create($data);
+
 
         return back();
     }
