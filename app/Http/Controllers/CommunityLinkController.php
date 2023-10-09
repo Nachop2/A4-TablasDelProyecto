@@ -6,6 +6,7 @@ use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Channel;
+use Illuminate\Support\ItemNotFoundException;
 
 class CommunityLinkController extends Controller
 {
@@ -64,11 +65,12 @@ class CommunityLinkController extends Controller
         $approved = Auth::user()->isTrusted();
         $data['user_id'] = Auth::id();
         $data['approved'] = $approved;
-
+        
         CommunityLink::create($data);
-
-
-        return back();
+        // if ($approved) {
+        // } else {
+        // }
+        return back()->with('success', 'Your contribution has been created successfully!');
     }
 
 
