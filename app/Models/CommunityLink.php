@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class CommunityLink extends Model
 {
@@ -20,5 +21,13 @@ class CommunityLink extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class, 'channel_id');
+    }
+
+    protected static function hasAlreadyBeenSubmitted($link)
+    {
+        if (static::where('link', $link)->first()) {
+            return true;
+        }
+        return false;
     }
 }
