@@ -65,12 +65,13 @@ class CommunityLinkController extends Controller
         $approved = Auth::user()->isTrusted();
         $data['user_id'] = Auth::id();
         $data['approved'] = $approved;
-        
+
         CommunityLink::create($data);
-        // if ($approved) {
-        // } else {
-        // }
-        return back()->with('success', 'Your contribution has been created successfully!');
+        if ($approved) {
+            return back()->with('success', 'Your contribution has been created successfully!');
+        } else {
+            return back()->with('info', 'Your contribution has been created successfully!, but it needs to be approved');
+        }
     }
 
 
