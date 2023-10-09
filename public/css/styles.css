@@ -1,0 +1,24 @@
+.col-md-8 li {
+    list-style-type: none;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.col-md-8 li:first-of-type{
+    border-radius: 10px 10px 0px 0px;
+}
+
+.col-md-8 li:last-of-type{
+    border-radius: 0px 0px 10px 10px;
+}
+.col-md-8 li:not(:last-of-type){
+    border-bottom: 0px;
+}
+
+.col-md-8 li span{
+    float: left;
+    margin-right: 20px;
+    margin-left: 10px;
+    padding: 0px;
+    border-radius: 5px;
+}
