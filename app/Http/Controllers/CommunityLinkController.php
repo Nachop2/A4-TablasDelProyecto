@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommunityLinkForm;
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Channel;
-use Illuminate\Support\Carbon;
 
 class CommunityLinkController extends Controller
 {
@@ -45,23 +45,11 @@ class CommunityLinkController extends Controller
     // }
 
 
-    public function store(Request $request)
+    public function store(CommunityLinkForm $request)
 
     {
 
-        $data = $request->validate([
-
-            'title' => 'required|max:255',
-
-
-
-            'channel_id' => 'required|exists:channels,id',
-
-            'link' => 'required|url|max:255',
-
-
-
-        ]);
+        $data = $request->validated();
         $approved = Auth::user()->isTrusted();
         $data['user_id'] = Auth::id();
         $data['approved'] = $approved;
@@ -85,9 +73,15 @@ class CommunityLinkController extends Controller
             if ($repeated) {
                 // Update timestamp, but needs to be approved
                 $old = CommunityLink::firstWhere('link', $data['link']);
-                $old->touch();
-                $old->save();
-                return back()->with('info', 'Your contribution has been updated successfully, but it needs to be approved!');
+                if ($old['approved']) {
+                    $old->touch();
+                    $old->save();
+                    return back()->with('error', 'Your contribution has been ignored, an existing aproved post exists, you require to be trusted to update it');
+                } else {
+                    $old->touch();
+                    $old->save();
+                    return back()->with('info', 'Your contribution has been updated successfully, but it needs to be approved!');
+                }
             } else {
                 // Post created, but needs to be approved
                 CommunityLink::create($data);
