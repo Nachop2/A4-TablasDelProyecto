@@ -26,7 +26,7 @@ class CommunityLinkController extends Controller
             $links = CommunityLink::where('approved', 1)->where('channel_id', $channel['id'])->latest('updated_at')->paginate(25);
         }
         // do link search for channel slug
-        return view('community/index', compact(['links', 'channels']));
+        return view('community/index', compact(['links', 'channels','channel']));
     }
 
     /**
