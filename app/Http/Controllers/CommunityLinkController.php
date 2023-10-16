@@ -58,11 +58,9 @@ class CommunityLinkController extends Controller
         $approved = Auth::user()->isTrusted();
         $data['user_id'] = Auth::id();
         $data['approved'] = $approved;
-        $repeated = CommunityLink::hasAlreadyBeenSubmitted($data['link']);
 
-        $link = new CommunityLink();
-        $link->user_id = Auth::id();
-        $link->hasAlreadyBeenSubmitted($data['link']);
+        $repeated = new CommunityLink();
+        $repeated->hasAlreadyBeenSubmitted($data['link']);
 
         //$option = 2 * $approved + $repeated;
 
