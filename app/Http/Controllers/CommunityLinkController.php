@@ -7,6 +7,7 @@ use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Channel;
+use Illuminate\Support\Facades\Log;
 
 class CommunityLinkController extends Controller
 {
@@ -54,6 +55,10 @@ class CommunityLinkController extends Controller
         $data['user_id'] = Auth::id();
         $data['approved'] = $approved;
         $repeated = CommunityLink::hasAlreadyBeenSubmitted($data['link']);
+
+        $link = new CommunityLink();
+        $link->user_id = Auth::id();
+        $link->hasAlreadyBeenSubmitted($data['link']);
 
         //$option = 2 * $approved + $repeated;
 
