@@ -14,14 +14,18 @@ class CommunityLinkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Channel $channel = null)
     {
 
+        //dd($channel);
         $channels = Channel::orderBy('title', 'asc')->get();
 
-
-        $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
-
+        if ($channel == null) {
+            $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+        } else {
+            $links = CommunityLink::where('approved', 1)->where('channel_id', $channel['id'])->latest('updated_at')->paginate(25);
+        }
+        // do link search for channel slug
         return view('community/index', compact(['links', 'channels']));
     }
 

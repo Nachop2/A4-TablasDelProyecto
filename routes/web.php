@@ -23,6 +23,8 @@ Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'i
 Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store'])->middleware(['auth','verified']);
 
 
+Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
+
 Route::get('/home', function () {
     return view('home');
  })->middleware(['auth', 'verified'])->name('home');
