@@ -8,8 +8,8 @@ jobs:
     runs-on: debian-12
     steps:
         - name: Deploy
-            uses: appleboy/ssh-action@v0.1.8
-            with:
+          uses: appleboy/ssh-action@v0.1.8
+          with:
                 host: 79.143.90.170
                 port: 2222
                 username: ignacio
