@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
+
+    dd(opcache_get_status());
+   
     return view('welcome');
-});
+   
+   });
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes(['verify' => 'true']);
 Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'index']);
