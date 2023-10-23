@@ -9,6 +9,11 @@ class Channel extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title','color','slug'
+        'title', 'color', 'slug'
     ];
+
+    public function communitylinks()
+    {
+        return $this->hasMany(CommunityLink::class);
+    }
 }
