@@ -27,8 +27,8 @@
                 {{ $link->channel->title }}
 
             </a>
-
         </span>
+        <span>Votes: {{$link->users()->count()}}</span>
 
     </li>
     @endforeach
