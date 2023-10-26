@@ -18,25 +18,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     //dd(opcache_get_status());
-   
+
     return view('welcome');
-   
-   });
+});
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
 Auth::routes(['verify' => 'true']);
 Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'index']);
-Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store'])->middleware(['auth','verified']);
-
+Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store'])->middleware(['auth', 'verified']);
+Route::post('votes/{link}', [App\Http\Controllers\CommunityLinkUserController::class, 'store']);
 
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 
 Route::get('/home', function () {
     return view('home');
- })->middleware(['auth', 'verified'])->name('home');
- 
- Route::get('/flash-message', function () {
+})->middleware(['auth', 'verified'])->name('home');
+
+Route::get('/flash-message', function () {
     return view('flash-message');
 });
