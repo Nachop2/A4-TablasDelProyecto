@@ -23,7 +23,7 @@ class CommunityLinkController extends Controller
         if ($channel == null) {
             $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
         } else {
-            $links = CommunityLink::where('approved', 1)->communitylinks()->latest('updated_at')->paginate(25);
+            $links = CommunityLink::where('approved', 1)->where('channel_id', $channel['id'])->latest('updated_at')->paginate(25);
         }
         // do link search for channel slug
         return view('community/index', compact(['links', 'channels','channel']));
@@ -65,7 +65,7 @@ class CommunityLinkController extends Controller
         //$option = 2 * $approved + $repeated;
 
         if ($approved) {
-            if ($repeated) {
+            if ($repeated === true) {
                 // Update approved post
                 $old = CommunityLink::firstWhere('link', $data['link']);
                 $old->touch();
@@ -77,7 +77,7 @@ class CommunityLinkController extends Controller
                 return back()->with('success', 'Your contribution has been created successfully!');
             }
         } else {
-            if ($repeated) {
+            if ($repeated === true) {
                 // Update timestamp, but needs to be approved
                 $old = CommunityLink::firstWhere('link', $data['link']);
                 if ($old['approved']) {

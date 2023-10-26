@@ -25,14 +25,15 @@ class CommunityLink extends Model
 
     public function users()
     {
-    return $this->belongsToMany(User::class, 'community_link_users');
+        return $this->belongsToMany(User::class, 'community_link_users');
     }
 
     public static function hasAlreadyBeenSubmitted($link)
     {
         if (static::where('link', $link)->first()) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }
