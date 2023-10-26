@@ -11,4 +11,12 @@ class CommunityLinkUser extends Model
     protected $fillable = [
         'user_id', 'community_link_id'
     ];
+
+    public function toggleVote(CommunityLinkUser $vote){
+        if ($vote->id) {
+            $vote->delete();
+        } else {
+            $vote->save();
+        }
+    }
 }
