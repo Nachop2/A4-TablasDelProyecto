@@ -6,6 +6,6 @@
         @include('community.link-column')
         @include('community.add-link')
     </div>
-    {{ $links->links() }}
+    {{ $links->appends($_GET)->links() }}
 </div>
 @stop
