@@ -21,8 +21,7 @@ class CommunityLinkUserController extends Controller
         $vote = CommunityLinkUser::firstOrNew([
         'user_id' => Auth::id(),
         'community_link_id' => $link->id
-        ]);
-        $vote->toggleVote($vote);
+        ])->toggleVote();
         return back();
 
     }

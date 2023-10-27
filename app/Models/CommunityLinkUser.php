@@ -12,11 +12,11 @@ class CommunityLinkUser extends Model
         'user_id', 'community_link_id'
     ];
 
-    public function toggleVote(CommunityLinkUser $vote){
-        if ($vote->id) {
-            $vote->delete();
+    public function toggleVote(){
+        if ($this->id) {
+            $this->delete();
         } else {
-            $vote->save();
+            $this->save();
         }
     }
 }
