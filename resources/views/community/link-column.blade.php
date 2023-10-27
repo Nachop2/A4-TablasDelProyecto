@@ -16,27 +16,26 @@
 
     <li>
 
-
+        <span>
         <form method="POST" action="/votes/{{ $link->id }}">
             {{ csrf_field() }}
             <button type="submit" class="btn {{ Auth::check() && Auth::user()->votedFor($link) ? 'btn-success' : 'btn-secondary' }}" {{ Auth::guest() ? 'disabled' : '' }}>
                 {{$link->users()->count()}}
             </button>
         </form>
-
+        </span>
 
         <a href="{{ $link->link }}" target="_blank">
             {{ $link->title }}
         </a>
         <small>Contributed by: {{ $link->creator->name }} {{ $link->updated_at->diffForHumans() }}</small>
 
-        <span class="label label-default" style="background: {{ $link->channel->color }}">
+        <span class="label label-default" style="border: {{ $link->channel->color }} solid 3px">
             <a class="text-decoration-none" href="/community/{{ $link->channel->slug }}">
                 {{ $link->channel->title }}
 
             </a>
         </span>
-        <span>Votes: {{$link->users()->count()}}</span>
 
     </li>
     @endforeach

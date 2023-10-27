@@ -22,3 +22,11 @@
     padding: 0px;
     border-radius: 5px;
 }
+
+li{
+    display: flex;
+}
+
+li span{
+    padding: 0px 5px !important ;
+}
