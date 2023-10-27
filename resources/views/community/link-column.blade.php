@@ -17,12 +17,12 @@
     <li>
 
         <span>
-        <form method="POST" action="/votes/{{ $link->id }}">
-            {{ csrf_field() }}
-            <button type="submit" class="btn {{ Auth::check() && Auth::user()->votedFor($link) ? 'btn-success' : 'btn-secondary' }}" {{ Auth::guest() ? 'disabled' : '' }}>
-                {{$link->users()->count()}}
-            </button>
-        </form>
+            <form method="POST" action="/votes/{{ $link->id }}">
+                {{ csrf_field() }}
+                <button type="submit" class="btn {{ Auth::check() && Auth::user()->votedFor($link) ? 'btn-success' : 'btn-secondary' }}" {{ Auth::guest() ? 'disabled' : '' }}>
+                    {{$link->users()->count()}}
+                </button>
+            </form>
         </span>
 
         <a href="{{ $link->link }}" target="_blank">
@@ -40,4 +40,14 @@
     </li>
     @endforeach
     @endif
+
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link {{request()->exists('popular') ? '' : 'disabled' }}" href="{{request()->url()}}">Most recent</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most popular</a>
+        </li>
+    </ul>
+
 </div>

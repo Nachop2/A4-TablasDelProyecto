@@ -6,6 +6,7 @@ use App\Http\Requests\CommunityLinkForm;
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Queries\CommunityLinksQuery;
 use App\Models\Channel;
 use Illuminate\Support\Facades\Log;
 
@@ -19,15 +20,17 @@ class CommunityLinkController extends Controller
 
         //dd($channel);
         $channels = Channel::orderBy('title', 'asc')->get();
-
+        $links = CommunityLinksQuery::getAll();
 
         if (request()->exists('popular')) {
-            $links = CommunityLink::where('approved', 1)->withCount('users')->orderBy('users_count', 'desc')->paginate(25);
-        } else {
-            if ($channel == null) {
-                $links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+            if ($channel != null) {
+                $links = CommunityLinksQuery::getMostPopularbyChannel($channel);
             } else {
-                $links = CommunityLink::where('approved', 1)->where('channel_id', $channel['id'])->latest('updated_at')->paginate(25);
+                $links = CommunityLinksQuery::getMostPopular();
+            }
+        } else {
+            if ($channel != null) {
+                $links = CommunityLinksQuery::getByChannel($channel);
             }
         }
         // do link search for channel slug
