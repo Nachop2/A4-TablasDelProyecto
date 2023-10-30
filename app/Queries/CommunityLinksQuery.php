@@ -9,20 +9,20 @@ class CommunityLinksQuery
 {
     public static function getByChannel(Channel $channel)
     {
-        return CommunityLink::where('approved', 1)->where('channel_id', $channel['id'])->latest('updated_at')->paginate(25);
+        return CommunityLink::where('approved', 1)->where('channel_id', $channel['id']);
     }
 
     public static function getAll()
     {
-        return CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+        return $links = CommunityLink::where('approved', 1);
     }
 
-    public static function getMostPopular()
+    public static function getMostPopular($links)
     {
-        return CommunityLink::where('approved', 1)->withCount('users')->orderBy('users_count', 'desc')->paginate(25);
+        return $links->withCount('users')->orderBy('users_count', 'desc')->paginate(25);
     }
-    public static function getMostPopularbyChannel(Channel $channel)
+    public static function sortByLatest($links)
     {
-        return CommunityLink::where('approved', 1)->where('channel_id', $channel['id'])->withCount('users')->orderBy('users_count', 'desc')->paginate(25);
+        return $links->latest('updated_at')->paginate(25);
     }
 }

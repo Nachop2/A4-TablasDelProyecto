@@ -22,16 +22,13 @@ class CommunityLinkController extends Controller
         $channels = Channel::orderBy('title', 'asc')->get();
         $links = CommunityLinksQuery::getAll();
 
+        if ($channel != null) {
+            $links = CommunityLinksQuery::getByChannel($channel);
+        }
         if (request()->exists('popular')) {
-            if ($channel != null) {
-                $links = CommunityLinksQuery::getMostPopularbyChannel($channel);
-            } else {
-                $links = CommunityLinksQuery::getMostPopular();
-            }
+            $links = CommunityLinksQuery::getMostPopular($links);
         } else {
-            if ($channel != null) {
-                $links = CommunityLinksQuery::getByChannel($channel);
-            }
+            $links = CommunityLinksQuery::sortByLatest($links);
         }
         // do link search for channel slug
         return view('community/index', compact(['links', 'channels', 'channel']));
