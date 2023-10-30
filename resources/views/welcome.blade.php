@@ -9,6 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        
 
         <!-- Styles -->
         <style>
@@ -136,5 +137,6 @@
                 </div>
             </div>
         </div>
+        <script src="https://kit.fontawesome.com/2f16c7e861.js" crossorigin="anonymous"></script>
     </body>
 </html>
