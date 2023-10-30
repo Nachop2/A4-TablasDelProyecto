@@ -38,6 +38,15 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        <form  method="GET" action="/community">
+                            <ul class="navbar-nav ms-auto">
+                                <li class="form-group col">
+                                    <input type="text" name="search" class="form-control" id="inputSearch" aria-describedby="search" placeholder="Search...">
+                                </li>
+                                <li>
+                                    <button type="submit" class="btn btn-primary col">Search</button>
+                                </li>
+                        </form>
                         <!-- Authentication Links -->
                         @guest
                         @if (Route::has('login'))

@@ -23,9 +23,13 @@ class CommunityLinkController extends Controller
         $links = CommunityLinksQuery::getAll();
 
         if ($channel != null) {
-            $links = CommunityLinksQuery::getByChannel($channel);
+            $links = CommunityLinksQuery::getByChannel($channel,$links);
         }
-        
+        if(request()->exists('search')){
+            $term = request()->input('search');
+            $links = CommunityLinksQuery::searchQuery($links,$term);
+        }
+
         if (request()->exists('popular')) {
             $links = CommunityLinksQuery::getMostPopular($links);
         } else {
