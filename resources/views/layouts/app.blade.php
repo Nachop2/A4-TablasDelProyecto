@@ -41,7 +41,7 @@
                         <form  method="GET" action="/community">
                             <ul class="navbar-nav ms-auto">
                                 <li class="form-group col">
-                                    <input type="text" name="search" class="form-control" id="inputSearch" aria-describedby="search" placeholder="Search...">
+                                    <input value="{{old('search')}}" type="text" name="search" class="form-control" id="inputSearch" aria-describedby="search" placeholder="Search...">
                                 </li>
                                 <li>
                                     <button type="submit" class="btn btn-primary col">Search</button>

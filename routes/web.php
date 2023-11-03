@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::post('community', [App\Http\Controllers\CommunityLinkController::class, '
 Route::post('votes/{link}', [App\Http\Controllers\CommunityLinkUserController::class, 'store']);
 
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
+
+Route::get('/profile/edit',[App\Http\Controllers\ProfileController::class, 'edit'])->middleware(['auth', 'verified']);
 
 Route::get('/home', function () {
     return view('home');
