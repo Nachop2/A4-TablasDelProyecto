@@ -36,10 +36,11 @@ class ProfileController extends Controller
         if ($request->imageUpload) {
             $path = $request->file('imageUpload')->store('images', 'public');
 
-            $data['user_id'] = Auth::id();
-            $data['imageUpload'] = $path;
-            Profile::create($data);
-            return back()->with('success', "Your image has been updated.");
+            Profile::updateOrCreate(
+                ['user_id' => Auth::id()],
+                ['imageUpload' => $path]
+            );
+            return back()->with('success', "Your image has been uploaded.");
         }
 
         return back();

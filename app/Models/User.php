@@ -53,6 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(CommunityLink::class, 'community_link_users')->withTimestamps();
     }
 
+    public function profile(){
+        return $this->hasOne(Profile::class);
+    }
+
     public function votedFor(CommunityLink $link)
     {
         return $this->votes->contains($link);

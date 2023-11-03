@@ -2,6 +2,7 @@
 @section('content')
 
 <p>Test</p>
+<img src="{{url('storage/'.Auth::user()->profile->imageUpload)}}">
 <form action="/profile/store" method="POST" id="updateImage" enctype="multipart/form-data">
     @csrf
 
