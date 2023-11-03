@@ -34,6 +34,7 @@ Route::post('votes/{link}', [App\Http\Controllers\CommunityLinkUserController::c
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 
 Route::get('/profile/edit',[App\Http\Controllers\ProfileController::class, 'edit'])->middleware(['auth', 'verified']);
+Route::post('/profile/store',[App\Http\Controllers\ProfileController::class, 'store']);
 
 Route::get('/home', function () {
     return view('home');

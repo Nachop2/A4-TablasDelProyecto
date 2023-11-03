@@ -38,7 +38,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <form  method="GET" action="/community">
+                        <form method="GET" action="/community">
                             <ul class="navbar-nav ms-auto">
                                 <li class="form-group col">
                                     <input value="{{old('search')}}" type="text" name="search" class="form-control" id="inputSearch" aria-describedby="search" placeholder="Search...">
@@ -71,6 +71,7 @@
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
+                                <a class="dropdown-item" href="/profile/edit">Profile edit</a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
