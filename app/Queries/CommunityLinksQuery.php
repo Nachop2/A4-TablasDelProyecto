@@ -21,7 +21,11 @@ class CommunityLinksQuery
 
     public static function searchQuery($links,$term)
     {
-        return $links->where('title','like', "%".$term."%");
+        $termArray = explode(" ",$term);
+        foreach ($termArray as $value) {
+            $results = $links ->where('title','like', "%".$value."%");
+        }
+        return $results;
     }
 
     // Filtering ending, requires pagination

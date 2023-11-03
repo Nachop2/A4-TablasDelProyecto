@@ -20,11 +20,14 @@
             <form method="POST" action="/votes/{{ $link->id }}">
                 {{ csrf_field() }}
                 <button type="submit" class="btn {{ Auth::check() && Auth::user()->votedFor($link) ? 'btn-success' : 'btn-secondary' }}" {{ Auth::guest() ? 'disabled' : '' }}>
+                    <span><i class="fa-solid fa-arrow-up"></i></span>
+
                     {{$link->users()->count()}}
+
                 </button>
             </form>
-        </span>
 
+        </span>
         <a href="{{ $link->link }}" target="_blank">
             {{ $link->title }}
         </a>
