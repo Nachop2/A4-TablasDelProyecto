@@ -62,7 +62,7 @@
                         @endif
                         @else
                         <li class="navbar-brand">
-                            <img src="{{url('storage/'.Auth::user()->profile->imageUpload)}}" style="height:39px;margin-left:10px">
+                            <img src="{{Auth::user()->profile->imageUpload ?? ''}}" style="height:39px;margin-left:10px">
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
