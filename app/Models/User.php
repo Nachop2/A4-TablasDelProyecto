@@ -24,6 +24,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
+    public static $rules = array(
+    ); 
+
     /**
      * The attributes that should be hidden for serialization.
      *
