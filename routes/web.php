@@ -36,7 +36,8 @@ Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkContro
 
 Route::get('/profile/edit',[App\Http\Controllers\ProfileController::class, 'edit'])->middleware(['auth', 'verified']);
 Route::post('/profile/store',[App\Http\Controllers\ProfileController::class, 'store']);
-Route::resource('users', 'App\Http\Controllers\UserController')->middleware(['auth', 'verified']);
+Route::resource('users', 'App\Http\Controllers\UserController')->middleware('can:viewAny,App\Models\User');
+
 Route::get('/home', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('home');
