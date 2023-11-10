@@ -61,6 +61,12 @@
                         </li>
                         @endif
                         @else
+                        @can('viewAny', 'App\Models\User')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Dashboard</a>
+                        </li>
+                        @endcan
+
                         <li class="navbar-brand">
                             <img src="{{Auth::user()->profile->imageUpload ?? ''}}" style="height:39px;margin-left:10px">
                         </li>
