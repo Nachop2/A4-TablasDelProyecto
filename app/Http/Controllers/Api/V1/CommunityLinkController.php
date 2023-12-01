@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
+use App\Http\Requests\CommunityLinkForm;
 
 class CommunityLinkController extends Controller
 {
@@ -19,13 +20,14 @@ class CommunityLinkController extends Controller
      */
     public function index()
     {
-        //
+
+        //return response()->json(['Links' => $links], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CommunityLinkForm $request)
     {
         //
     }
