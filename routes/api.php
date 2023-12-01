@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::apiResource('v1/communitylinks', CommunityLinkController::class)->middleware('api');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
