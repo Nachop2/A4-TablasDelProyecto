@@ -7,6 +7,8 @@ use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommunityLinkForm;
 use App\Queries\CommunityLinksQuery;
+use Illuminate\Support\Facades\Auth;
+
 class CommunityLinkController extends Controller
 {
     public function __construct()
@@ -21,9 +23,9 @@ class CommunityLinkController extends Controller
     public function index()
     {
         $links = CommunityLinksQuery::getAll();
-        if(request()->exists('search')){
+        if (request()->exists('search')) {
             $term = request()->input('search');
-            $links = CommunityLinksQuery::searchQuery($links,$term);
+            $links = CommunityLinksQuery::searchQuery($links, $term);
         }
         if (request()->exists('popular')) {
             $links = CommunityLinksQuery::getMostPopular($links);
@@ -38,7 +40,49 @@ class CommunityLinkController extends Controller
      */
     public function store(CommunityLinkForm $request)
     {
-        //
+        $data = $request->validated();
+        $approved = Auth::user()->isTrusted();
+        $data['approved'] = $approved;
+        $data['user_id'] = Auth::id();
+
+        $repeated = new CommunityLink();
+        $test = $repeated->hasAlreadyBeenSubmitted($data['link']);
+
+        //$option = 2 * $approved + $repeated;
+        //dd($repeated);
+        if ($approved) {
+            if ($test === true) {
+                // Update approved post
+                $old = CommunityLink::firstWhere('link', $data['link']);
+                $old->touch();
+                $old->save();
+                
+                return response()->json(['message' => "Your contribution has been updated successfully!"], 201);
+            } else {
+                // Create approved post
+                CommunityLink::create($data);
+                return response()->json(['message' => "Your link has been published.Thanks for your contribution."], 201);
+            }
+        } else {
+            if ($test === true) {
+                // Update timestamp, but needs to be approved
+                $old = CommunityLink::firstWhere('link', $data['link']);
+                if ($old['approved']) {
+                    $old->touch();
+                    $old->save();
+                    return response()->json(['message' => "Your contribution has been ignored, an existing aproved post exists, you require to be trusted to update it"], 201);
+                } else {
+                    $old->touch();
+                    $old->save();
+                    return response()->json(['message' => "Your contribution has been updated successfully, but it needs to be approved!"], 201);
+                }
+            } else {
+                // Post created, but needs to be approved
+                CommunityLink::create($data);
+                return response()->json(['message' => "Your link will be reviewed for the administrator before publishing.Thanks for your contribution."], 201);
+            }
+        }
+
     }
 
     /**
