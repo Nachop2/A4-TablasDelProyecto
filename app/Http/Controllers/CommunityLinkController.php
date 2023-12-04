@@ -70,12 +70,12 @@ class CommunityLinkController extends Controller
         $data['approved'] = $approved;
 
         $repeated = new CommunityLink();
-        $repeated->hasAlreadyBeenSubmitted($data['link']);
+        $test = $repeated->hasAlreadyBeenSubmitted($data['link']);
 
         //$option = 2 * $approved + $repeated;
 
         if ($approved) {
-            if ($repeated === true) {
+            if ($test === true) {
                 // Update approved post
                 $old = CommunityLink::firstWhere('link', $data['link']);
                 $old->touch();
@@ -87,7 +87,7 @@ class CommunityLinkController extends Controller
                 return back()->with('success', 'Your contribution has been created successfully!');
             }
         } else {
-            if ($repeated === true) {
+            if ($test === true) {
                 // Update timestamp, but needs to be approved
                 $old = CommunityLink::firstWhere('link', $data['link']);
                 if ($old['approved']) {
