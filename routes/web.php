@@ -40,7 +40,7 @@ Route::post('/profile/store',[App\Http\Controllers\ProfileController::class, 'st
 Route::resource('users', 'App\Http\Controllers\UserController')->middleware('can:viewAny,App\Models\User');
 
 //Route::post('/api/v1/communitylinks/login', [App\Http\Controllers\Api\V1\LoginController::class],'login');
-Route::post(('/api/v1/communitylinks/login'),[LoginController::class],'login');
+
 
 Route::get('/home', function () {
     return view('home');
