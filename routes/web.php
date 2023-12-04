@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkContro
 Route::get('/profile/edit',[App\Http\Controllers\ProfileController::class, 'edit'])->middleware(['auth', 'verified']);
 Route::post('/profile/store',[App\Http\Controllers\ProfileController::class, 'store']);
 Route::resource('users', 'App\Http\Controllers\UserController')->middleware('can:viewAny,App\Models\User');
+
+//Route::post('login', [App\Http\Controllers\Api\V1\LoginController::class],'login');
+Route::post(('login'),[LoginController::class],'login');
 
 Route::get('/home', function () {
     return view('home');
