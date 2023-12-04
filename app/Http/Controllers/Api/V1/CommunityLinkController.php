@@ -40,7 +40,17 @@ class CommunityLinkController extends Controller
      */
     public function store(CommunityLinkForm $request)
     {
+        dd($request);
+
         $data = $request->validated();
+        if($data->fails()){
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Validation Error!',
+                'data' => $data->errors(),
+            ], 403);
+        }
+
         $approved = Auth::user()->isTrusted();
         $data['approved'] = $approved;
         $data['user_id'] = Auth::id();
